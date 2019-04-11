@@ -63,6 +63,7 @@
 #include "infra/SimpleRegex.hpp"
 #include "infra/CfgNode.hpp"
 #include "infra/Timer.hpp"
+#include "optimizer/BridgeTest.hpp"
 #include "optimizer/LoadExtensions.hpp"
 #include "optimizer/Optimization.hpp"
 #include "optimizer/OptimizationManager.hpp"
@@ -739,6 +740,8 @@ OMR::Optimizer::Optimizer(TR::Compilation *comp, TR::ResolvedMethodSymbol *metho
 #if !defined(TR_OVERRIDE_OPTIMIZATION_INITIALIZATION)
    // initialize OMR optimizations
 
+   _opts[OMR::bridgeTest] =
+      new (comp->allocator()) TR::OptimizationManager(self(), OMR::BridgeTest::create, OMR::bridgeTest);
    _opts[OMR::andSimplification] =
       new (comp->allocator()) TR::OptimizationManager(self(), TR_SimplifyAnds::create, OMR::andSimplification);
    _opts[OMR::arraysetStoreElimination] =
